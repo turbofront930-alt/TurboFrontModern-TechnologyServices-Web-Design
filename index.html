@@ -115,30 +115,11 @@
         <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </main>
 
+    <!-- معرض المشاريع التفاعلي المربوط بقاعدة البيانات -->
     <section class="container mx-auto py-10 px-4 bg-gray-100 dark:bg-gray-800 rounded-3xl my-10 shadow-inner">
         <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">نماذج من أعمالي السابقة</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-md group">
-                <img src="habat-bun.jpg" class="h-40 w-full object-cover group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/400x200?text=Habbat+Bun'">
-                <div class="p-4 text-right">
-                    <h4 class="font-bold">متجر حبات بن للقهوة</h4>
-                    <a href="https://turbofront930-alt.github.io/-/" target="_blank" class="mt-3 inline-block w-full bg-blue-600 text-white text-center py-2 rounded-lg text-sm font-bold">معاينة المشروع</a>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-md group">
-                <img src="khair-baladna.jpg" class="h-40 w-full object-cover group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/400x200?text=Store+1'">
-                <div class="p-4 text-right">
-                    <h4 class="font-bold">ماركت خير بلدنا</h4>
-                    <a href="https://turbofront930-alt.github.io/store-1/" target="_blank" class="mt-3 inline-block w-full bg-blue-600 text-white text-center py-2 rounded-lg text-sm font-bold">معاينة المشروع</a>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-md group">
-                <img src="wedding-demo.jpg" class="h-40 w-full object-cover group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/400x200?text=Invitation'">
-                <div class="p-4 text-right">
-                    <h4 class="font-bold">فرحة سالم ومريم</h4>
-                    <a href="https://turbofront930-alt.github.io/-invitation-2/" target="_blank" class="mt-3 inline-block w-full bg-blue-600 text-white text-center py-2 rounded-lg text-sm font-bold">معاينة المشروع</a>
-                </div>
-            </div>
+        <div id="dynamic-projects-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <p class="text-center col-span-full opacity-60">جاري تحميل المشاريع...</p>
         </div>
     </section>
 
@@ -231,5 +212,47 @@
         }
     </script>
     <script src="script.js"></script>
+
+    <!-- ربط Firebase وجلب المشاريع ديناميكياً -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
+            authDomain: "turbofront-23e10.firebaseapp.com",
+            projectId: "turbofront-23e10",
+            storageBucket: "turbofront-23e10.firebasestorage.app",
+            messagingSenderId: "989007662566",
+            appId: "1:989007662566:web:ab90726f1cd01412459a27",
+            measurementId: "G-VD89G6W80L"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const container = document.getElementById('dynamic-projects-container');
+        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            if (snapshot.empty) {
+                container.innerHTML = '<p class="text-center col-span-full opacity-60">لا توجد مشاريع مضافة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = snapshot.docs.map(doc => {
+                const proj = doc.data();
+                return `
+                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-md group">
+                        <img src="${proj.image}" class="h-40 w-full object-cover group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/400x200?text=Project'">
+                        <div class="p-4 text-right">
+                            <h4 class="font-bold">${proj.title}</h4>
+                            <a href="${proj.link}" target="_blank" class="mt-3 inline-block w-full bg-blue-600 text-white text-center py-2 rounded-lg text-sm font-bold">معاينة المشروع</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        });
+    </script>
 </body>
 </html>
