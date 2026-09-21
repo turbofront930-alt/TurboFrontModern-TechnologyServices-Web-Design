@@ -213,10 +213,10 @@
     </script>
     <script src="script.js"></script>
 
-    <!-- ربط Firebase وجلب المشاريع ديناميكياً -->
+    <!-- ربط Firebase وجلب المشاريع المباشرة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
@@ -232,7 +232,7 @@
         const db = getFirestore(app);
 
         const container = document.getElementById('dynamic-projects-container');
-        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+        const q = collection(db, "projects");
 
         onSnapshot(q, (snapshot) => {
             if (snapshot.empty) {
