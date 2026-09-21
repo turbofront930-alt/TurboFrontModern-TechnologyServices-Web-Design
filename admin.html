@@ -40,14 +40,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ضع بيانات مشروعك من Firebase هنا
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "SENDER_ID",
-            appId: "APP_ID"
+            apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
+            authDomain: "turbofront-23e10.firebaseapp.com",
+            projectId: "turbofront-23e10",
+            storageBucket: "turbofront-23e10.firebasestorage.app",
+            messagingSenderId: "989007662566",
+            appId: "1:989007662566:web:ab90726f1cd01412459a27",
+            measurementId: "G-VD89G6W80L"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -75,7 +75,7 @@
                 statusMsg.classList.remove('hidden');
                 form.reset();
             } catch (error) {
-                statusMsg.innerText = "حدث خطأ أثناء الإضافة!";
+                statusMsg.innerText = "حدث خطأ أثناء الإضافة! تأكد من تفعيل Firestore.";
                 statusMsg.className = "mt-4 text-center text-xs font-bold text-red-600";
                 statusMsg.classList.remove('hidden');
             } finally {
