@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbo Front | Eng Ebrahim Saad</title>
+    
+    <meta name="description" content="موقع Eng Ebrahim Saad لتصميم المواقع والمتاجر الإلكترونية وكروت الأفراح الرقمية باحترافية.">
+    <meta name="keywords" content="Eng Ebrahim Saad, تصميم مواقع, متجر واتساب, كارت فرح رقمي, Turbo Front, برمجة مواقع مصر">
+    <meta name="author" content="Eng Ebrahim Saad">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .filter-container::-webkit-scrollbar { display: none; }
+        .stat-card { transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        
+        /* حركة شريط إشعارات الطلبات */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white pb-28">
+
+    <button onclick="toggleDarkMode()" class="fixed top-28 left-4 z-[1001] bg-gray-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </button>
+
+    <!-- زر واتساب عائم للتواصل السريع -->
+    <a href="https://wa.me/201101475409" target="_blank" class="fixed bottom-20 right-4 z-[1001] bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition-transform hover:scale-110">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- شريط خصم الأسعار العلوي -->
+    <div class="bg-red-600 text-white text-center py-2 font-bold text-xs sticky top-0 z-[1000] shadow-md">
+        🔥 خصم خاصلفترة محدودة على جميع الخدمات! ينتهي العرض خلال: <span id="countdown" class="underline font-black dir-ltr">00:00:00</span>
+    </div>
+
+    <!-- شريط إشعارات الطلبات المباشرة الحية (أعلى الصفحة) -->
+    <div class="bg-blue-900 text-yellow-300 text-xs py-1.5 overflow-hidden relative border-b border-blue-700">
+        <div class="animate-marquee flex gap-8 items-center font-bold">
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> قام عميل من القاهرة بطلب "ويب سايت" الآن!</span>
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> تم تسليم "متجر إلكتروني" لعميل في الجيزة بنجاح.</span>
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> انضم عميل جديد لطلب "كارت فرح رقمي".</span>
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> جاري تجهيز مشروع "ويب سايت" لشركة مقاولات.</span>
+        </div>
+    </div>
+
+    <header class="p-6 bg-white dark:bg-gray-800 shadow-md text-center border-b-4 border-blue-600">
+        <h1 class="text-4xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tighter uppercase">TURBO FRONT</h1>
+        <p class="mt-1 text-sm font-bold">Eng Ebrahim Saad</p>
+
+        <div class="flex filter-container overflow-x-auto gap-2 mt-6 px-2 justify-center">
+            <button onclick="filterProducts('all')" class="whitespace-nowrap bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-bold shadow-md">الكل</button>
+            <button onclick="filterProducts('web')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">مواقع</button>
+            <button onclick="filterProducts('e-store')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">متاجر</button>
+            <button onclick="filterProducts('invitation')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">كروت فرح</button>
+        </div>
+    </header>
+
+    <section class="container mx-auto py-10 px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="stat-card p-6 bg-blue-600 text-white rounded-2xl shadow-xl">
+                <i class="fas fa-shopping-cart text-2xl mb-2"></i>
+                <div class="text-3xl font-black">+10</div>
+                <div class="text-[10px] font-bold uppercase">متاجر إلكترونية</div>
+            </div>
+            <div class="stat-card p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-b-4 border-blue-600">
+                <i class="fas fa-heart text-2xl mb-2 text-blue-600"></i>
+                <div class="text-3xl font-black text-blue-600">+50</div>
+                <div class="text-[10px] font-bold uppercase opacity-70">كروت أفراح</div>
+            </div>
+            <div class="stat-card p-6 bg-blue-600 text-white rounded-2xl shadow-xl">
+                <i class="fas fa-users text-2xl mb-2"></i>
+                <div class="text-3xl font-black">+100</div>
+                <div class="text-[10px] font-bold uppercase">عملاء راضون</div>
+            </div>
+            <div class="stat-card p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-b-4 border-blue-600">
+                <i class="fas fa-code text-2xl mb-2 text-blue-600"></i>
+                <div class="text-3xl font-black text-blue-600">2026</div>
+                <div class="text-[10px] font-bold uppercase opacity-70">أحدث التقنيات</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-8 px-4 bg-white dark:bg-gray-800 rounded-3xl shadow-sm my-10">
+        <h2 class="text-xl font-bold mb-8 border-r-4 border-blue-600 pr-2">فريق العمل والخبرة</h2>
+        <div class="flex flex-col md:flex-row items-center gap-8 px-4">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-600 overflow-hidden shadow-lg shrink-0">
+                <img src="ibrahim.jpg" alt="Eng Ebrahim Saad" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/150x150/2563eb/FFF?text=Eng+Ebrahim'">
+            </div>
+            <div class="text-right">
+                <h3 class="text-2xl font-bold text-blue-600">Eng Ebrahim Saad</h3>
+                <p class="font-bold text-sm mt-1">IT Engineer & Web Developer</p>
+                <p class="text-sm mt-4 opacity-80 leading-relaxed">
+                    متخصص في هندسة تكنولوجيا المعلومات وتطوير حلول التجارة الإلكترونية المبتكرة. قمنا بتنفيذ أكثر من 100 مشروع ناجح يجمع بين الكفاءة البرمجية وسهولة الاستخدام للعميل المصري.
+                </p>
+                <div class="flex gap-4 mt-4">
+                    <span class="text-[10px] bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full font-bold italic">#Experience_2026</span>
+                    <span class="text-[10px] bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full font-bold italic">#IT_Expert</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-4 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm border-r-4 border-blue-600 flex items-center gap-4">
+            <i class="fas fa-rocket text-2xl text-blue-600"></i>
+            <div><h3 class="font-bold text-sm">سرعة فائقة</h3><p class="text-[10px] opacity-70">تسليم خلال 48 ساعة فقط.</p></div>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm border-r-4 border-blue-600 flex items-center gap-4">
+            <i class="fas fa-infinity text-2xl text-blue-600"></i>
+            <div><h3 class="font-bold text-sm">استضافة مجانية</h3><p class="text-[10px] opacity-70">بدون أي مصاريف تجديد سنوية.</p></div>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm border-r-4 border-blue-600 flex items-center gap-4">
+            <i class="fas fa-headset text-2xl text-blue-600"></i>
+            <div><h3 class="font-bold text-sm">دعم فني هندسي</h3><p class="text-[10px] opacity-70">تواصل مباشر لحل أي استفسار.</p></div>
+        </div>
+    </section>
+
+    <!-- باقات الخدمات المتاحة المحدثة بالأسعار والمسميات الجديدة -->
+    <main class="container mx-auto p-4">
+        <h2 class="text-xl font-bold mb-6 border-r-4 border-blue-600 pr-2">باقات الخدمات المتاحة</h2>
+        <div id="products-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- كارت ويب سايت -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border-t-4 border-blue-600 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">ويب سايت</h3>
+                    <p class="text-xs opacity-70 mb-4">تصميم موقع تعريفي متكامل يعرض خدماتك وشركتك بأسلوب احترافي.</p>
+                    <div class="text-2xl font-black mb-4 text-gray-800 dark:text-white">٣٠٠٠ ج.م</div>
+                </div>
+                <button onclick="selectPackage('ويب سايت')" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs hover:bg-blue-700 transition">طلب الخدمة</button>
+            </div>
+
+            <!-- كارت متجر إلكتروني -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border-t-4 border-green-600 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-2">متجر إلكتروني</h3>
+                    <p class="text-xs opacity-70 mb-4">متجر متكامل للبيع المباشر وعرض المنتجات مع الربط بالواتساب.</p>
+                    <div class="text-2xl font-black mb-4 text-gray-800 dark:text-white">من ٥٠٠٠ ج إلى ١٠٠٠٠ ج</div>
+                </div>
+                <button onclick="selectPackage('متجر إلكتروني')" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-xl text-xs hover:bg-green-700 transition">طلب الخدمة</button>
+            </div>
+
+            <!-- كارت فرح رقمي -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border-t-4 border-pink-500 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-pink-500 mb-2">كارت فرح</h3>
+                    <p class="text-xs opacity-70 mb-4">دعوة زفاف رقمية تفاعلية مميزة بتصاميم حديثة وموقع الخريطة.</p>
+                    <div class="text-2xl font-black mb-4 text-gray-800 dark:text-white">٣٠٠ ج.م</div>
+                </div>
+                <button onclick="selectPackage('كارت فرح')" class="w-full bg-pink-500 text-white font-bold py-2.5 rounded-xl text-xs hover:bg-pink-600 transition">طلب الخدمة</button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- معرض المشاريع المحدث الذي يعرض اللوجو الخاص بكل موقع -->
+    <section class="container mx-auto py-10 px-4 bg-gray-100 dark:bg-gray-800 rounded-3xl my-10 shadow-inner">
+        <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">نماذج من أعمالي السابقة</h2>
+        <div id="dynamic-projects-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <p class="text-center col-span-full opacity-60">جاري تحميل المشاريع...</p>
+        </div>
+    </section>
+
+    <!-- قسم آراء العملاء (Testimonials) المضاف -->
+    <section class="container mx-auto py-10 px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">آراء العملاء</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-xs opacity-80 mb-4">"خدمة ممتازة وسريعة جداً، الويب سايت شغال بكفاءة عالية وتصميم عصري جداً."</p>
+                <h4 class="font-bold text-sm text-blue-600">- المهندس أحمد علي</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-xs opacity-80 mb-4">"المتجر الإلكتروني زاد مبيعاتنا بشكل ملحوظ وسهل جداً للعملاء في الطلب."</p>
+                <h4 class="font-bold text-sm text-blue-600">- أ/ محمود حسن</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-xs opacity-80 mb-4">"كارت الفرح كان تحفة وعجب كل الضيوف، السرعة والذوق في التعامل أسلوبهم مميز."</p>
+                <h4 class="font-bold text-sm text-blue-600">- م/ سارة ومحمد</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأسئلة الشائعة (FAQ Accordion) المضاف -->
+    <section class="container mx-auto py-10 px-4 bg-white dark:bg-gray-800 rounded-3xl shadow-sm my-10">
+        <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">الأسئلة الشائعة</h2>
+        <div class="max-w-2xl mx-auto space-y-4 text-xs">
+            <details class="p-4 border rounded-xl dark:border-gray-700 cursor-pointer">
+                <summary class="font-bold text-sm text-gray-800 dark:text-white">كم يستغرق وقت تسليم الويب سايت أو المتجر؟</summary>
+                <p class="mt-2 opacity-80 leading-relaxed">يتم تسليم معظم المواقع والمتاجر خلال 24 إلى 48 ساعة فقط من استلام كافة التفاصيل.</p>
+            </details>
+            <details class="p-4 border rounded-xl dark:border-gray-700 cursor-pointer">
+                <summary class="font-bold text-sm text-gray-800 dark:text-white">هل توجد مصاريف تجديد سنوية للاستضافة؟</summary>
+                <p class="mt-2 opacity-80 leading-relaxed">لا، الاستضافة مجانية ومدى الحياة بدون أي تكاليف تجديد خفية.</p>
+            </details>
+            <details class="p-4 border rounded-xl dark:border-gray-700 cursor-pointer">
+                <summary class="font-bold text-sm text-gray-800 dark:text-white">كيف يتم الدفع والتواصل بعد الطلب؟</summary>
+                <p class="mt-2 opacity-80 leading-relaxed">بعد ملء النموذج يتم توجيهك مباشرة للواتساب للتأكيد والبدء فوراً في المشروع.</p>
+            </details>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-10 px-4">
+        <h2 class="text-xl font-bold mb-8 text-center">اعتماد الجودة والأمان</h2>
+        <div class="flex flex-wrap justify-center gap-8 opacity-60">
+            <div class="flex flex-col items-center">
+                <i class="fas fa-shield-alt text-4xl mb-2 text-green-600"></i>
+                <span class="text-[10px] font-bold uppercase">SSL Secured</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-check-double text-4xl mb-2 text-blue-600"></i>
+                <span class="text-[10px] font-bold uppercase">Quality Checked</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-user-shield text-4xl mb-2 text-purple-600"></i>
+                <span class="text-[10px] font-bold uppercase">Data Privacy</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fas fa-certificate text-4xl mb-2 text-yellow-500"></i>
+                <span class="text-[10px] font-bold uppercase">Certified Dev</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-8 px-4 border-t dark:border-gray-800 pt-10">
+        <h2 class="text-xl font-bold mb-6 border-r-4 border-blue-600 pr-2">المدونة التقنية</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border-t-2 border-blue-600 shadow-sm">
+                <h4 class="font-bold text-blue-600 mb-2">لماذا متجر الواتساب؟</h4>
+                <p class="opacity-80">أسرع وسيلة للبيع المباشر وزيادة الأرباح بدون عمولات دفع.</p>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border-t-2 border-blue-600 shadow-sm">
+                <h4 class="font-bold text-blue-600 mb-2">قوة الاستضافة المجانية</h4>
+                <p class="opacity-80">نعتمد على GitHub Pages لتقديم استضافة آمنة ومجانية مدى الحياة.</p>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border-t-2 border-blue-600 shadow-sm">
+                <h4 class="font-bold text-blue-600 mb-2">هويتك الرقمية 2026</h4>
+                <p class="opacity-80">موقعك هو مقرك الرسمي أمام محركات البحث وعملائك.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- نموذج الطلب المحدث بالمسميات الجديدة -->
+    <section id="order-form" class="container mx-auto py-10 px-4 bg-white dark:bg-gray-800 rounded-3xl shadow-xl my-10 border-2 border-blue-600 mx-4">
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">تواصل معي لطلب مشروعك</h2>
+        <form class="max-w-xl mx-auto space-y-3">
+            <input type="text" id="custName" placeholder="الاسم بالكامل" class="w-full p-3 border rounded-lg dark:bg-gray-700 text-sm" required>
+            <input type="tel" id="custPhone" placeholder="رقم الواتساب" class="w-full p-3 border rounded-lg dark:bg-gray-700 text-sm" required>
+            <select id="projectType" class="w-full p-3 border rounded-lg dark:bg-gray-700 text-sm">
+                <option value="ويب سايت">ويب سايت</option>
+                <option value="متجر إلكتروني">متجر إلكتروني</option>
+                <option value="كارت فرح">كارت فرح رقمي</option>
+                <option value="باقة VIP">باقة VIP المتكاملة</option>
+            </select>
+            <textarea id="projectDetails" placeholder="تفاصيل سريعة عن طلبك..." class="w-full p-3 border rounded-lg h-24 dark:bg-gray-700 text-sm"></textarea>
+            <button type="button" onclick="sendToWhatsApp()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp"></i> إرسال الطلب عبر الواتساب
+            </button>
+        </form>
+    </section>
+
+    <!-- شريط إشعارات الطلبات السفلي المثبت -->
+    <div class="fixed bottom-10 left-0 w-full bg-black/90 text-white py-1.5 z-40 text-xs overflow-hidden border-t border-gray-700">
+        <div class="animate-marquee flex gap-8 items-center text-gray-300">
+            <span>⚡ العرض ساري لفترة محدودة جداً</span>
+            <span>🔥 طلبات متزايدة الآن على "المتاجر الإلكترونية" و "الويب سايت"</span>
+            <span>✅ ضمان جودة واستضافة مجانية مدى الحياة</span>
+        </div>
+    </div>
+
+    <!-- الفوتر الثابت بالأسفل -->
+    <footer class="fixed bottom-0 left-0 w-full bg-blue-600 text-white py-2.5 z-50 text-center shadow-lg">
+        <p class="font-bold text-xs uppercase tracking-widest">Developed by: Eng Ebrahim Saad</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        let time = 86400; 
+        setInterval(() => {
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById('countdown').innerHTML = `${h}:${m}:${s}`;
+            if (time > 0) time--;
+        }, 1000);
+
+        function selectPackage(packageName) {
+            document.getElementById('projectType').value = packageName;
+            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const type = document.getElementById('projectType').value;
+            const details = document.getElementById('projectDetails').value;
+            const message = `*طلب جديد من Turbo Front*%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*الخدمة:* ${type}%0A*التفاصيل:* ${details}`;
+            window.open(`https://wa.me/201101475409?text=${message}`, '_blank');
+        }
+    </script>
+    <script src="script.js"></script>
+
+    <!-- ربط Firebase وجلب المشاريع المضافة عبر admin.html تلقائياً -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
+            authDomain: "turbofront-23e10.firebaseapp.com",
+            projectId: "turbofront-23e10",
+            storageBucket: "turbofront-23e10.firebasestorage.app",
+            messagingSenderId: "989007662566",
+            appId: "1:989007662566:web:ab90726f1cd01412459a27",
+            measurementId: "G-VD89G6W80L"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const container = document.getElementById('dynamic-projects-container');
+
+        onSnapshot(collection(db, "projects"), (snapshot) => {
+            if (snapshot.empty) {
+                container.innerHTML = '<p class="text-center col-span-full opacity-60">لا توجد مشاريع مضافة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = snapshot.docs.map(docSnap => {
+                const proj = docSnap.data();
+                return `
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group p-5 flex flex-col items-center text-center border border-gray-100 dark:border-gray-600">
+                        <div class="w-20 h-20 bg-blue-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-3 mb-4 shadow-inner group-hover:scale-110 transition">
+                            <img src="${proj.image}" class="w-12 h-12 object-contain" onerror="this.src='https://placehold.co/100x100/2563eb/FFF?text=Logo'">
+                        </div>
+                        <h4 class="font-bold text-base mb-4 text-gray-800 dark:text-white">${proj.title}</h4>
+                        <a href="${proj.link || '#'}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-2">
+                            <span>معاينة الموقع</span>
+                            <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>

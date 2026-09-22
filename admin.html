@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم - Eng Ebrahim Saad</title>
+  <!-- Bootstrap RTL -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+  <!-- FontAwesome للإيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+  <h2 class="text-center mb-1 fw-bold">لوحة التحكم الإدارية</h2>
+  <p class="text-center text-muted mb-4 font-monospace">Eng Ebrahim Saad</p>
+
+  <!-- تبويبات التنقل (Tabs) -->
+  <ul class="nav nav-pills mb-4 justify-content-center" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active px-4 fw-bold" id="projects-tab" data-bs-toggle="pill" data-bs-target="#projects-sec" type="button" role="tab">
+        <i class="fas fa-folder-open me-2"></i> إدارة المشاريع
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link px-4 fw-bold" id="products-tab" data-bs-toggle="pill" data-bs-target="#products-sec" type="button" role="tab">
+        <i class="fas fa-box-open me-2"></i> إدارة المنتجات والأسعار
+      </button>
+    </li>
+  </ul>
+
+  <!-- محتوى التبويبات -->
+  <div class="tab-content" id="adminTabsContent">
+    
+    <!-- ================= 1. قسم إدارة المشاريع ================= -->
+    <div class="tab-pane fade show active" id="projects-sec" role="tabpanel">
+      <!-- نموذج إضافة مشروع -->
+      <div class="card p-4 mb-4 shadow-sm border-0 rounded-3">
+        <h5 class="card-title mb-3 text-primary"><i class="fas fa-plus-circle me-1"></i> إضافة مشروع جديد</h5>
+        <form id="addProjectForm">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">عنوان المشروع</label>
+              <input type="text" id="projTitle" class="form-control" placeholder="اسم المشروع" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">رابط لوجو/صورة المشروع</label>
+              <input type="text" id="projImg" class="form-control" placeholder="images/project.jpg أو URL" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">رابط معاينة المشروع (Link)</label>
+              <input type="text" id="projLink" class="form-control" placeholder="https://example.com" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">وصف المشروع (اختياري)</label>
+              <textarea id="projDesc" class="form-control" rows="2" placeholder="تفاصيل وتكنولوجيا المشروع..."></textarea>
+            </div>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary px-4" id="submitProjBtn">+ إضافة المشروع</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- جدول المشاريع -->
+      <div class="card p-4 shadow-sm border-0 rounded-3">
+        <h5 class="card-title mb-3 fw-bold">قائمة المشاريع</h5>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-dark">
+              <tr>
+                <th>الصورة / اللوجو</th>
+                <th>عنوان المشروع</th>
+                <th>رابط المعاينة</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="projectsTableBody">
+              <tr><td colspan="4">جاري تحميل البيانات...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 2. قسم إدارة المنتجات والأسعار ================= -->
+    <div class="tab-pane fade" id="products-sec" role="tabpanel">
+      <!-- نموذج إضافة منتج -->
+      <div class="card p-4 mb-4 shadow-sm border-0 rounded-3">
+        <h5 class="card-title mb-3 text-success"><i class="fas fa-cart-plus me-1"></i> إضافة منتج جديد</h5>
+        <form id="addProductForm">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">اسم المنتج</label>
+              <input type="text" id="prodName" class="form-control" placeholder="اسم الخدمة أو الباقة" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">السعر (ج.م)</label>
+              <input type="number" id="prodPrice" class="form-control" placeholder="0.00" step="0.5" required>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label fw-semibold">رابط الصورة</label>
+              <input type="text" id="prodImg" class="form-control" placeholder="images/product.jpg">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">الوصف / التفاصيل</label>
+              <input type="text" id="prodDesc" class="form-control" placeholder="وصف قصير للمنتج">
+            </div>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-success px-4">+ إضافة المنتج</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- جدول المنتجات وتعديل الأسعار -->
+      <div class="card p-4 shadow-sm border-0 rounded-3">
+        <h5 class="card-title mb-3 fw-bold">قائمة المنتجات وتحديث الأسعار</h5>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-dark">
+              <tr>
+                <th>الصورة</th>
+                <th>اسم المنتج</th>
+                <th>السعر الحالي</th>
+                <th>تعديل السعر المباشر</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <tr><td colspan="5">جاري تحميل المنتجات...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Firebase Script لإدارة إضافة وحذف المشاريع لحظياً -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+      apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
+      authDomain: "turbofront-23e10.firebaseapp.com",
+      projectId: "turbofront-23e10",
+      storageBucket: "turbofront-23e10.firebasestorage.app",
+      messagingSenderId: "989007662566",
+      appId: "1:989007662566:web:ab90726f1cd01412459a27",
+      measurementId: "G-VD89G6W80L"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const addProjectForm = document.getElementById('addProjectForm');
+  const projectsTableBody = document.getElementById('projectsTableBody');
+
+  // إضافة مشروع جديد إلى Firebase
+  addProjectForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('projTitle').value;
+    const image = document.getElementById('projImg').value;
+    const link = document.getElementById('projLink').value;
+    const desc = document.getElementById('projDesc').value;
+
+    try {
+      await addDoc(collection(db, "projects"), {
+        title: title,
+        image: image,
+        link: link,
+        desc: desc,
+        createdAt: new Date()
+      });
+      addProjectForm.reset();
+      alert('تمت إضافة المشروع بنجاح وظهر على الموقع مباشرة!');
+    } catch (error) {
+      console.error("خطأ أثناء إضافة المشروع: ", error);
+      alert('حدث خطأ أثناء إضافة المشروع.');
+    }
+  });
+
+  // عرض واستماع لحالة المشاريع لحظياً
+  onSnapshot(collection(db, "projects"), (snapshot) => {
+    if (snapshot.empty) {
+      projectsTableBody.innerHTML = '<tr><td colspan="4">لا توجد مشاريع مضافة حالياً.</td></tr>';
+      return;
+    }
+
+    projectsTableBody.innerHTML = snapshot.docs.map(docSnap => {
+      const proj = docSnap.data();
+      const id = docSnap.id;
+      return `
+        <tr>
+          <td><img src="${proj.image}" width="50" height="50" style="object-fit:contain;" onerror="this.src='https://placehold.co/50x50'"></td>
+          <td><strong>${proj.title}</strong></td>
+          <td><a href="${proj.link}" target="_blank" class="btn btn-sm btn-outline-primary">معاينة</a></td>
+          <td>
+            <button onclick="deleteProject('${id}')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> حذف</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  });
+
+  // حذف مشروع
+  window.deleteProject = async (id) => {
+    if (confirm('هل أنت تأكد من حذف هذا المشروع؟')) {
+      await deleteDoc(doc(db, "projects", id));
+    }
+  };
+</script>
+</body>
+</html>
