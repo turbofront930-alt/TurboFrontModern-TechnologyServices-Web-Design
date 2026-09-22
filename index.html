@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbo Front | Eng Ebrahim Saad</title>
+    
+    <meta name="description" content="موقع Eng Ebrahim Saad لتصميم المواقع والمتاجر الإلكترونية وكروت الأفراح الرقمية باحترافية وسرعة فائقة.">
+    <meta name="keywords" content="Eng Ebrahim Saad, تصميم مواقع, متجر واتساب, كارت فرح رقمي, Turbo Front, برمجة مواقع مصر, استضافة مجانية">
+    <meta name="author" content="Eng Ebrahim Saad">
+    <meta property="og:title" content="Turbo Front | Eng Ebrahim Saad">
+    <meta property="og:description" content="احصل على موقعك الإلكتروني أو متجرك بأحدث التقنيات مع استضافة مجانية مدى الحياة.">
+    <meta property="og:image" content="https://placehold.co/150x150/2563eb/FFF?text=Eng+Ebrahim">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .filter-container::-webkit-scrollbar { display: none; }
+        .stat-card { transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white pb-28">
+
+    <button onclick="toggleDarkMode()" class="fixed top-28 left-4 z-[1001] bg-gray-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </button>
+
+    <a href="https://wa.me/201101475409" target="_blank" class="fixed bottom-20 right-4 z-[1001] bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition-transform hover:scale-110">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <div id="sales-popup" class="fixed bottom-20 left-4 z-[1000] bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-3 rounded-2xl shadow-2xl border-r-4 border-green-500 flex items-center gap-3 transition-all duration-500 opacity-0 translate-y-10 pointer-events-none text-xs">
+        <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center shrink-0">
+            <i class="fas fa-shopping-cart text-sm"></i>
+        </div>
+        <div>
+            <p class="font-bold" id="popup-title">طلب جديد الآن! 🚀</p>
+            <p class="opacity-70 text-[10px]" id="popup-desc">قام عميل بطلب ويب سايت</p>
+        </div>
+    </div>
+
+    <div class="bg-red-600 text-white text-center py-2 font-bold text-xs sticky top-0 z-[1000] shadow-md">
+        🔥 خصم خاص لفترة محدودة على جميع الخدمات! ينتهي العرض خلال: <span id="countdown" class="underline font-black dir-ltr">00:00:00</span>
+    </div>
+
+    <div class="bg-blue-900 text-yellow-300 text-xs py-1.5 overflow-hidden relative border-b border-blue-700">
+        <div class="animate-marquee flex gap-8 items-center font-bold">
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> قام عميل بطلب "ويب سايت لشركة كفوري IT Tech" الآن!</span>
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> تم تسليم "متجر إلكتروني" لعميل في الجيزة بنجاح.</span>
+            <span><i class="fas fa-shopping-bag text-green-400 me-1"></i> انضم عميل جديد لطلب "كارت فرح رقمي".</span>
+        </div>
+    </div>
+
+    <header class="p-6 bg-white dark:bg-gray-800 shadow-md text-center border-b-4 border-blue-600">
+        <h1 class="text-4xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tighter uppercase">TURBO FRONT</h1>
+        <p class="mt-1 text-sm font-bold">Eng Ebrahim Saad</p>
+
+        <div class="flex filter-container overflow-x-auto gap-2 mt-6 px-2 justify-center">
+            <button onclick="filterProducts('all')" class="whitespace-nowrap bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-bold shadow-md">الكل</button>
+            <button onclick="filterProducts('web')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">مواقع</button>
+            <button onclick="filterProducts('e-store')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">متاجر</button>
+            <button onclick="filterProducts('invitation')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 px-5 py-2 rounded-full text-xs">كروت فرح</button>
+        </div>
+    </header>
+
+    <section class="container mx-auto py-10 px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="stat-card p-6 bg-blue-600 text-white rounded-2xl shadow-xl">
+                <i class="fas fa-shopping-cart text-2xl mb-2"></i>
+                <div class="text-3xl font-black">+10</div>
+                <div class="text-[10px] font-bold uppercase">متاجر إلكترونية</div>
+            </div>
+            <div class="stat-card p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-b-4 border-blue-600">
+                <i class="fas fa-heart text-2xl mb-2 text-blue-600"></i>
+                <div class="text-3xl font-black text-blue-600">+50</div>
+                <div class="text-[10px] font-bold uppercase opacity-70">كروت أفراح</div>
+            </div>
+            <div class="stat-card p-6 bg-blue-600 text-white rounded-2xl shadow-xl">
+                <i class="fas fa-users text-2xl mb-2"></i>
+                <div class="text-3xl font-black">+100</div>
+                <div class="text-[10px] font-bold uppercase">عملاء راضون</div>
+            </div>
+            <div class="stat-card p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-b-4 border-blue-600">
+                <i class="fas fa-code text-2xl mb-2 text-blue-600"></i>
+                <div class="text-3xl font-black text-blue-600">2026</div>
+                <div class="text-[10px] font-bold uppercase opacity-70">أحدث التقنيات</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نبذة عن المهندس إبراهيم سعد (تم ضبط الصورة وإضافة مسار احتياطي) -->
+    <section class="container mx-auto py-8 px-4 bg-white dark:bg-gray-800 rounded-3xl shadow-sm my-10">
+        <h2 class="text-xl font-bold mb-8 border-r-4 border-blue-600 pr-2">فريق العمل والخبرة</h2>
+        <div class="flex flex-col md:flex-row items-center gap-8 px-4">
+            <div class="w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-blue-600 overflow-hidden shadow-xl shrink-0 bg-blue-100 flex items-center justify-center">
+                <img src="ibrahim.jpg" alt="Eng Ebrahim Saad" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Eng+Ebrahim+Saad&background=2563eb&color=fff&size=200';">
+            </div>
+            <div class="text-right">
+                <h3 class="text-2xl font-bold text-blue-600">Eng Ebrahim Saad</h3>
+                <p class="font-bold text-sm mt-1">IT Engineer & Web Developer</p>
+                <p class="text-sm mt-4 opacity-80 leading-relaxed">
+                    متخصص في هندسة تكنولوجيا المعلومات وتطوير حلول التجارة الإلكترونية والمواقع التعريفية للمؤسسات مثل (KFOURY IT Tech). قمنا بتنفيذ أكثر من 100 مشروع ناجح بأساليب برمجية حديثة.
+                </p>
+                <div class="flex gap-4 mt-4">
+                    <span class="text-[10px] bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full font-bold italic">#Experience_2026</span>
+                    <span class="text-[10px] bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full font-bold italic">#IT_Expert</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- معرض المشاريع السابقة المحدث -->
+    <section class="container mx-auto py-10 px-4 bg-gray-100 dark:bg-gray-800 rounded-3xl my-10 shadow-inner">
+        <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">نماذج من أعمالي السابقة</h2>
+        <div id="dynamic-projects-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            
+            <!-- مشروع كفوري IT Tech الأساسي -->
+            <div class="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group p-5 flex flex-col items-center text-center border border-gray-100 dark:border-gray-600">
+                <div class="w-20 h-20 bg-blue-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-3 mb-4 shadow-inner group-hover:scale-110 transition">
+                    <i class="fas fa-laptop-code text-3xl text-blue-600"></i>
+                </div>
+                <h4 class="font-bold text-base mb-1 text-gray-800 dark:text-white">KFOURY IT Tech</h4>
+                <p class="text-xs text-blue-600 font-bold mb-3">موقع شركة تكنولوجيا معلومات</p>
+                <a href="https://turbofront930-alt.github.io/KFOURY-IT-Tech.-Com-/" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-2">
+                    <span>معاينة الموقع</span>
+                    <i class="fas fa-external-link-alt text-[10px]"></i>
+                </a>
+            </div>
+
+            <!-- باقي المشاريع الديناميكية المحملة من Firebase ستظهر هنا -->
+        </div>
+    </section>
+
+    <!-- قسم آراء العملاء أكثر من 15 تعليق إيجابي -->
+    <section class="container mx-auto py-10 px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center text-blue-600">آراء العملاء والتقييمات (+15 تقييم)</h2>
+        
+        <div id="testimonials-list" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"موقع شركة KFOURY IT Tech اتنفذ على أعلى مستوى من الاحترافية والسرعة."</p>
+                <h4 class="font-bold text-xs text-blue-600">- إدارة كفوري IT Tech</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"خدمة ممتازة وسريعة جداً، الويب سايت شغال بكفاءة عالية وتصميم عصري جداً."</p>
+                <h4 class="font-bold text-xs text-blue-600">- المهندس أحمد علي</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"المتجر الإلكتروني زاد مبيعاتنا بشكل ملحوظ وسهل جداً للعملاء في الطلب."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ محمود حسن</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"كارت الفرح كان تحفة وعجب كل الضيوف، السرعة والذوق في التعامل أسلوبهم مميز."</p>
+                <h4 class="font-bold text-xs text-blue-600">- م/ سارة ومحمد</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"المهندس إبراهيم ملتزم جداً بالمواعيد والتعديلات بتتعمل في نفس اللحظة."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ كريم خالد</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"أفضل تجربة تصميم موقع تخوضها شركتنا، دعم فني متواصل وحرفية."</p>
+                <h4 class="font-bold text-xs text-blue-600">- شركة النور للمقاولات</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"الاستضافة المجانية مدى الحياة فرت علينا مصاريف سنوية كتير شكراً لكم."</p>
+                <h4 class="font-bold text-xs text-blue-600">- د/ مصطفى العبد</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"سرعة تحميل الموقع جبارة والتصاميم متناسبة جداً مع الموبايل."</p>
+                <h4 class="font-bold text-xs text-blue-600">- مهندس طارق فؤاد</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"ربط الممتجر بالواتساب تسهيل غير عادي على الزبائن للطلب المباشر."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ هبة السعيد</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"شغل برمجيات نظيف جداً وتجاوب ممتار على كل الشاشات."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ ياسر إبراهيم</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"تسليم قبل الميعاد المتفق عليه وشغل يفوق التوقعات."</p>
+                <h4 class="font-bold text-xs text-blue-600">- م/ عمر فاروق</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"لوحة التحكم سهلة جداً بقدر اغير من خلالها كل حاجة ببساطة."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ منى فاروق</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"دعم فني متعاون ومحترم جداً شكراً باشمهندس إبراهيم."</p>
+                <h4 class="font-bold text-xs text-blue-600">- د/ حازم صبري</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"افضل ميزة هي السرعة في التنفيذ بدون أخطاء برمجة."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ وائل غنيم</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"التصميم أنيق وراقي جداً وعجب كل زوار المتجر."</p>
+                <h4 class="font-bold text-xs text-blue-600">- أ/ شيماء علي</h4>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-1 text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-xs opacity-80 mb-3">"سعر الباقة مقابل الجودة ممتاز جداً مقارنة بالسوق."</p>
+                <h4 class="font-bold text-xs text-blue-600">- م/ إسلام عادل</h4>
+            </div>
+        </div>
+
+        <!-- نموذج إضافة تقييم جديد -->
+        <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-blue-100 dark:border-gray-700">
+            <h3 class="text-lg font-bold mb-4 text-center text-blue-600">أضف تقييمك ورأيك في الخدمة</h3>
+            <form id="reviewForm" onsubmit="addCustomerReview(event)" class="space-y-3 text-xs">
+                <input type="text" id="reviewerName" placeholder="اسمك / اسم شركتك" class="w-full p-3 border rounded-xl dark:bg-gray-700" required>
+                <div>
+                    <label class="block mb-1 font-bold opacity-80">التقييم بالنجوم:</label>
+                    <select id="reviewerRating" class="w-full p-3 border rounded-xl dark:bg-gray-700 text-yellow-500 font-bold">
+                        <option value="5">⭐⭐⭐⭐⭐ (5/5) ممتاز جداً</option>
+                        <option value="4">⭐⭐⭐⭐ (4/5) ممتاز</option>
+                    </select>
+                </div>
+                <textarea id="reviewerComment" placeholder="اكتب رأيك وتجربتك معنا..." class="w-full p-3 border rounded-xl h-20 dark:bg-gray-700" required></textarea>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">نشر التقييم فوراً</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-blue-600 text-white py-2.5 z-50 text-center shadow-lg">
+        <p class="font-bold text-xs uppercase tracking-widest">Developed by: Eng Ebrahim Saad</p>
+    </footer>
+
+    <!-- سكريبت Firebase لجلب المشاريع وحذفها وعرضها -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBI_-xyfznsUZOdDPRRG3TDaxbtgfqteL8",
+            authDomain: "turbofront-23e10.firebaseapp.com",
+            projectId: "turbofront-23e10",
+            storageBucket: "turbofront-23e10.firebasestorage.app",
+            messagingSenderId: "989007662566",
+            appId: "1:989007662566:web:ab90726f1cd01412459a27"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const container = document.getElementById('dynamic-projects-container');
+
+        onSnapshot(collection(db, "projects"), (snapshot) => {
+            // الاحتفاظ بمشروع KFOURY IT Tech دائماً أول عنصر
+            let htmlContent = `
+                <div class="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group p-5 flex flex-col items-center text-center border border-gray-100 dark:border-gray-600">
+                    <div class="w-20 h-20 bg-blue-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-3 mb-4 shadow-inner group-hover:scale-110 transition">
+                        <i class="fas fa-laptop-code text-3xl text-blue-600"></i>
+                    </div>
+                    <h4 class="font-bold text-base mb-1 text-gray-800 dark:text-white">KFOURY IT Tech</h4>
+                    <p class="text-xs text-blue-600 font-bold mb-3">موقع شركة IT</p>
+                    <a href="https://turbofront930-alt.github.io/KFOURY-IT-Tech.-Com-/" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-2">
+                        <span>معاينة الموقع</span>
+                        <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+            `;
+
+            snapshot.docs.forEach(docSnap => {
+                const proj = docSnap.data();
+                htmlContent += `
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group p-5 flex flex-col items-center text-center border border-gray-100 dark:border-gray-600">
+                        <div class="w-20 h-20 bg-blue-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-3 mb-4 shadow-inner group-hover:scale-110 transition">
+                            <img src="${proj.image}" class="w-12 h-12 object-contain" onerror="this.src='https://placehold.co/100x100/2563eb/FFF?text=Project'">
+                        </div>
+                        <h4 class="font-bold text-base mb-1 text-gray-800 dark:text-white">${proj.title}</h4>
+                        ${proj.price ? `<p class="text-xs font-black text-green-500 mb-2">${proj.price} ج.م</p>` : ''}
+                        <a href="${proj.link || '#'}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-2">
+                            <span>معاينة الموقع</span>
+                            <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        });
+    </script>
+</body>
+</html>
