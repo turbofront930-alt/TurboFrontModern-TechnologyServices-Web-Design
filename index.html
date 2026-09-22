@@ -13,6 +13,19 @@
     <meta property="og:image" content="ibrahim.jpg">
     <meta property="og:type" content="website">
 
+    <!-- SEO Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "TURBO FRONT | Eng Ebrahim Saad",
+      "image": "ibrahim.jpg",
+      "description": "تصميم وتطوير المواقع والمتاجر الإلكترونية وكروت الأفراح الرقمية باحترافية وسرعة فائقة.",
+      "telephone": "+201101475409",
+      "priceRange": "$$"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -39,8 +52,13 @@
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white pb-24">
 
     <!-- زر الوضع الليلي -->
-    <button onclick="toggleDarkMode()" class="fixed top-24 left-4 z-[1001] bg-gray-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg transition-all hover:scale-110">
+    <button onclick="toggleDarkMode()" aria-label="تغيير المظهر" class="fixed top-24 left-4 z-[1001] bg-gray-800 dark:bg-yellow-400 text-white dark:text-black p-3 rounded-full shadow-lg transition-all hover:scale-110">
         <i id="theme-icon" class="fas fa-moon"></i>
+    </button>
+
+    <!-- زر العودة للأعلى (Scroll To Top) - إضافة جديدة -->
+    <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="العودة للأعلى" class="fixed bottom-20 left-4 z-[1001] bg-blue-600 text-white p-3 rounded-full shadow-xl opacity-0 transition-all duration-300 pointer-events-none hover:bg-blue-700">
+        <i class="fas fa-arrow-up text-lg"></i>
     </button>
 
     <!-- الأزرار العائمة للتواصل (واتساب وفيسبوك) -->
@@ -88,10 +106,10 @@
 
         <!-- أزرار الفلترة والتصفية -->
         <div class="flex filter-container overflow-x-auto gap-2 mt-6 px-2 justify-center">
-            <button onclick="filterProducts('all')" class="whitespace-nowrap bg-blue-600 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md">الكل</button>
-            <button onclick="filterProducts('web')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold">مواقع</button>
-            <button onclick="filterProducts('e-store')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold">متاجر</button>
-            <button onclick="filterProducts('invitation')" class="whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold">كروت فرح</button>
+            <button id="filter-all" onclick="filterProducts('all')" class="filter-btn whitespace-nowrap bg-blue-600 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md transition-all">الكل</button>
+            <button id="filter-web" onclick="filterProducts('web')" class="filter-btn whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold transition-all">مواقع</button>
+            <button id="filter-e-store" onclick="filterProducts('e-store')" class="filter-btn whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold transition-all">متاجر</button>
+            <button id="filter-invitation" onclick="filterProducts('invitation')" class="filter-btn whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold transition-all">كروت فرح</button>
         </div>
     </header>
 
@@ -150,7 +168,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             <!-- باقة المتجر الإلكتروني -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border-2 border-blue-500 relative flex flex-col justify-between hover:scale-105 transition duration-300">
+            <div data-category="e-store" class="package-card bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border-2 border-blue-500 relative flex flex-col justify-between hover:scale-105 transition duration-300">
                 <span class="absolute -top-3 right-6 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">الأكثر طلباً 🔥</span>
                 <div>
                     <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl flex items-center justify-center text-xl mb-4">
@@ -159,7 +177,7 @@
                     <h3 class="text-lg font-bold mb-1">متجر إلكتروني متكامل</h3>
                     <p class="text-xs opacity-70 mb-4">متجر لبيع المنتجات وربط مباشر بالواتساب لوحة تحكم كاملة</p>
                     <div class="mb-6">
-                        <span class="text-3xl font-black text-blue-600">6599</span>
+                        <span class="text-3xl font-black text-blue-600">2500</span>
                         <span class="text-xs font-bold text-gray-500">ج.م / بدلاً من <span class="line-through text-red-500">3500</span></span>
                     </div>
                     <ul class="text-xs space-y-2 mb-6 opacity-80 border-t pt-4">
@@ -173,7 +191,7 @@
             </div>
 
             <!-- باقة الموقع التعريفي -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:scale-105 transition duration-300">
+            <div data-category="web" class="package-card bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:scale-105 transition duration-300">
                 <div>
                     <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl flex items-center justify-center text-xl mb-4">
                         <i class="fas fa-building"></i>
@@ -195,7 +213,7 @@
             </div>
 
             <!-- باقة كروت الأفراح والمناسبات -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:scale-105 transition duration-300">
+            <div data-category="invitation" class="package-card bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:scale-105 transition duration-300">
                 <div>
                     <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-2xl flex items-center justify-center text-xl mb-4">
                         <i class="fas fa-heart"></i>
@@ -204,7 +222,7 @@
                     <p class="text-xs opacity-70 mb-4">كارت فرح تفاعلي رقمي يصل لضيوفك عبر رابط خاص</p>
                     <div class="mb-6">
                         <span class="text-3xl font-black text-blue-600">500</span>
-                        <span class="text-xs font-bold text-gray-500">ج.م / بدلاً من <span class="line-through text-red-499">800</span></span>
+                        <span class="text-xs font-bold text-gray-500">ج.م / بدلاً من <span class="line-through text-red-500">800</span></span>
                     </div>
                     <ul class="text-xs space-y-2 mb-6 opacity-80 border-t pt-4">
                         <li><i class="fas fa-check text-green-500 me-2"></i>موقع القاعة على Google Maps</li>
@@ -244,7 +262,7 @@
     <section class="container mx-auto py-8 px-4">
         <h2 class="text-xl font-bold mb-6 text-center text-blue-600">آراء العملاء والتقييمات (+15 تقييم)</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center md:text-right">
+        <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center md:text-right">
             <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div class="flex justify-center md:justify-start gap-1 text-yellow-400 text-xs mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">"موقع شركة KFOURY IT Tech اتنفذ على أعلى مستوى من الاحترافية والسرعة."</p>
@@ -325,22 +343,47 @@
         <!-- 9. نموذج أضف تقييمك ورأيك في الخدمة -->
         <div class="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 text-center">
             <h3 class="text-base font-bold mb-4 text-blue-600">أضف تقييمك ورأيك في الخدمة</h3>
-            <form onsubmit="event.preventDefault(); alert('تم استلام تقييمك بنجاح وسوف يظهر بعد المراجعة!'); this.reset();" class="space-y-3 text-xs">
-                <input type="text" placeholder="الاسم / اسم الشركة" class="w-full p-3 border rounded-xl dark:bg-gray-700 dark:border-gray-600" required>
+            <form onsubmit="handleReviewSubmit(event)" class="space-y-3 text-xs">
+                <input id="reviewer-name" type="text" placeholder="الاسم / اسم الشركة" class="w-full p-3 border rounded-xl dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white" required>
                 <div>
                     <label class="block mb-1 font-bold text-gray-500 dark:text-gray-400 text-[10px]">التقييم بالنجوم:</label>
-                    <select class="w-full p-2.5 border rounded-xl dark:bg-gray-700 dark:border-gray-600 text-yellow-500 font-bold">
+                    <select id="reviewer-stars" class="w-full p-2.5 border rounded-xl dark:bg-gray-700 dark:border-gray-600 text-yellow-500 font-bold">
                         <option value="5">⭐⭐⭐⭐⭐ (5/5) ممتاز جداً</option>
                         <option value="4">⭐⭐⭐⭐ (4/5) ممتاز</option>
                     </select>
                 </div>
-                <textarea placeholder="اكتب رأيك وتجربتك معنا..." class="w-full p-3 border rounded-xl h-20 dark:bg-gray-700 dark:border-gray-600" required></textarea>
+                <textarea id="reviewer-text" placeholder="اكتب رأيك وتجربتك معنا..." class="w-full p-3 border rounded-xl h-20 dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white" required></textarea>
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition">نشر التقييم فوراً</button>
             </form>
         </div>
     </section>
 
-    <!-- 10. الفوتر السفلي الثابت -->
+    <!-- 10. قسم الأسئلة الشائعة (إضافة جديدة) -->
+    <section class="container mx-auto py-8 px-4">
+        <h2 class="text-xl font-bold mb-6 text-center text-blue-600">الأسئلة الشائعة</h2>
+        <div class="max-w-3xl mx-auto space-y-3 text-xs">
+            <details class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer">
+                <summary class="font-bold text-sm text-blue-600 flex justify-between items-center">
+                    <span>كم يستغرق وقت تسليم الموقع أو المتجر؟</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </summary>
+                <p class="mt-3 text-gray-600 dark:text-gray-300 leading-relaxed">
+                    يتم التسليم في أسرع وقت ممكن! كروت الأفراح تُنجز خلال 24 ساعة، والمواقع التعريفية والمتاجر تستغرق عادة من 3 إلى 5 أيام عمل فقط.
+                </p>
+            </details>
+            <details class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer">
+                <summary class="font-bold text-sm text-blue-600 flex justify-between items-center">
+                    <span>هل الاستضافة مجانية فعلاً مدى الحياة؟</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </summary>
+                <p class="mt-3 text-gray-600 dark:text-gray-300 leading-relaxed">
+                    نعم، يتم رفع كافة المواقع والمتاجر على خوادم مجانية سريعة وآمنة بدون أي تكاليف تجديد سنوية على الاستضافة.
+                </p>
+            </details>
+        </div>
+    </section>
+
+    <!-- 11. الفوتر السفلي الثابت -->
     <footer class="fixed bottom-0 left-0 w-full bg-blue-600 text-white py-2 z-50 text-center shadow-lg">
         <p class="font-bold text-[10px] uppercase tracking-widest">DEVELOPED BY: ENG EBRAHIM SAAD</p>
     </footer>
@@ -399,12 +442,32 @@
         });
     </script>
 
-    <!-- سكريبت الوظائف والعداد والوضع الليلي -->
+    <!-- سكريبت الوظائف والعداد والوضع الليلي والتفاعلات -->
     <script>
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
+        // إعداد الوضع الليلي الذكي وحفظه
+        function applySavedTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').className = 'fas fa-moon';
+            }
         }
 
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                document.getElementById('theme-icon').className = 'fas fa-moon';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            }
+        }
+
+        // العداد التنازلي
         function startTimer(duration) {
             let timer = duration, hours, minutes, seconds;
             setInterval(() => {
@@ -422,11 +485,96 @@
             }, 1000);
         }
 
+        // فلترة الباقات التفاعلية
         function filterProducts(type) {
-            alert('تم اختيار تصنيف: ' + type);
+            const cards = document.querySelectorAll('.package-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.className = 'filter-btn whitespace-nowrap bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-1.5 rounded-full text-xs font-bold transition-all';
+            });
+
+            const activeBtn = document.getElementById('filter-' + type);
+            if(activeBtn) {
+                activeBtn.className = 'filter-btn whitespace-nowrap bg-blue-600 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md transition-all';
+            }
+
+            cards.forEach(card => {
+                if (type === 'all' || card.getAttribute('data-category') === type) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
-        window.onload = () => startTimer(14400);
+        // إشعار المبيعات التفاعلي المتكرر (Sales Popup)
+        function initSalesPopup() {
+            const popup = document.getElementById('sales-popup');
+            const title = document.getElementById('popup-title');
+            const desc = document.getElementById('popup-desc');
+
+            const notifications = [
+                { t: "طلب جديد الآن! 🚀", d: "قام عميل بطلب متجر إلكتروني" },
+                { t: "مبروك لعميلنا ✨", d: "تم تسليم كارت فرح رقمي بنجاح" },
+                { t: "طلب موقع شركة 🏢", d: "انضم عميل جديد لطلب موقع تعريفي" }
+            ];
+
+            let index = 0;
+            setInterval(() => {
+                title.textContent = notifications[index].t;
+                desc.textContent = notifications[index].d;
+                
+                popup.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                popup.classList.add('opacity-100', 'translate-y-0');
+
+                setTimeout(() => {
+                    popup.classList.remove('opacity-100', 'translate-y-0');
+                    popup.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                }, 4000);
+
+                index = (index + 1) % notifications.length;
+            }, 12000);
+        }
+
+        // إضافة التقييم فورياً
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reviewer-name').value;
+            const text = document.getElementById('reviewer-text').value;
+
+            const newCard = document.createElement('div');
+            newCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-blue-500 animate-pulse';
+            newCard.innerHTML = `
+                <div class="flex justify-center md:justify-start gap-1 text-yellow-400 text-xs mb-2">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">"${text}"</p>
+                <h4 class="font-bold text-xs text-blue-600">- ${name}</h4>
+            `;
+
+            document.getElementById('reviews-container').prepend(newCard);
+            alert('تم نشر تقييمك بنجاح! شكراً لمشاركتك.');
+            e.target.reset();
+        }
+
+        // الزر العائم للأعلى عند التمرير
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scrollToTopBtn');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.remove('opacity-100');
+                btn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        window.onload = () => {
+            applySavedTheme();
+            startTimer(14400);
+            initSalesPopup();
+        };
     </script>
 </body>
 </html>
